@@ -9,11 +9,18 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "fe:fb:cd:03:3f:d7:9f:68:29:48:54:2d:00:94:0e:cd"
+            - 'fe:fb:cd:03:3f:d7:9f:68:29:48:54:2d:00:94:0e:cd'
       - checkout
+      - restore_cache:
+          keys:
+            - dependencies_imooc
       - run:
           name: install
           command: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies_imooc
       - run:
           name: build
           command: yarn build
